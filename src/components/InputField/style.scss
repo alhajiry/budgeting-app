@@ -12,14 +12,18 @@
 
 .input-form-head {
   margin: 50px;
-  padding: 10px;
+  text-align: left;
 
   select {
-    margin-bottom: 20px;
+    margin: 20px 40px;
   }
 
   input {
-    margin-bottom: 20px;
+    margin: 20px 40px;
+  }
+
+  .button-submit {
+    margin: 20px 40px;
   }
 }
 
