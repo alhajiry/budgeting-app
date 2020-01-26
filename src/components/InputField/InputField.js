@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-// import GetData from "../GetData/GetData";
+import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
+import "./style.scss";
 
 class InputField extends Component {
   constructor(props) {
@@ -109,52 +110,113 @@ class InputField extends Component {
 
     return (
       <div>
-        <h1>REACT CRUD App</h1>
-        <form ref="inputForm" className="input-form-head">
-          <select ref="type" form="inputForm" placeholder="pilih">
-            <option value="" disabled selected hidden>
-              Pilih
-            </option>
-            <option value="Pemasukan">Pemasukan</option>
-            <option value="Pengeluaran">Pengeluaran</option>
-          </select>
-          <input type="number" ref="total" placeholder="Jumlah" min="1" />
-          <input type="text" ref="name" placeholder="Judul" />
-          <button
-            onClick={event => this.formSubmit(event)}
-            className="button-submit"
-          >
-            Submit
-          </button>
-        </form>
-        {datas.length ? (
-          <div>
-            {datas.map((data, index) => (
-              <li key={index} className="input-content">
-                <span>{data.type}</span>
-                <span>{data.total}</span>
-                <span>{data.name}</span>
-                <button
-                  onClick={() => this.formEdit(index)}
-                  className="button-edit"
+        <h1 className="input-form-title">REACT TABUNGAN APP (CRUD)</h1>
+        <Container className="input-form-container">
+          <Row>
+            <Col className="input-form-formtosubmit">
+              <form ref="inputForm" className="input-form-head">
+                <select
+                  ref="type"
+                  form="inputForm"
+                  placeholder="pilih"
+                  required
                 >
-                  Edit
-                </button>
-                <button
-                  onClick={() => this.formDelete(index)}
-                  className="button-delete"
+                  <option value="Pemasukan" disabled selected hidden>
+                    Pilih
+                  </option>
+                  <option value="Pemasukan">Pemasukan</option>
+                  <option value="Pengeluaran">Pengeluaran</option>
+                </select>
+                <input
+                  type="number"
+                  ref="total"
+                  placeholder="Jumlah"
+                  min="1"
+                  required
+                />
+                <input type="text" ref="name" placeholder="Judul" required />
+                <Button
+                  variant="primary"
+                  onClick={event => this.formSubmit(event)}
+                  className="button-submit"
                 >
-                  Delete
-                </button>
-              </li>
-            ))}
-          </div>
-        ) : (
-          <div>Data is Empty</div>
-        )}
-        <p>Total Pemasukkan : {this.state.income}</p>
-        <p>Total Pengeluaran : {this.state.outcome}</p>
-        <p>Total Uang : {this.state.totalMoney}</p>
+                  Submit
+                </Button>
+              </form>
+            </Col>
+            <Col className="input-budgeting-data">
+              <p>
+                Total Pemasukkan :<br />
+                {this.state.income}
+              </p>
+              <p>
+                Total Pengeluaran : <br /> {this.state.outcome}
+              </p>
+              <p>
+                Total Uang : <br /> {this.state.totalMoney}
+              </p>
+            </Col>
+          </Row>
+
+          <Row>
+            {datas.length ? (
+              <div>
+                <Row>
+                  <ListGroup horizontal>
+                    <ListGroup.Item>Tipe</ListGroup.Item>
+                    <ListGroup.Item>Jumlah</ListGroup.Item>
+                    <ListGroup.Item>Judul</ListGroup.Item>
+                    <ListGroup.Item>Action</ListGroup.Item>
+                  </ListGroup>
+                </Row>
+                {datas.map((data, index) => (
+                  <li key={index} className="input-content">
+                    <Row>
+                      <Col className="input-type">{data.type}</Col>
+                      <Col className="input-total">{data.total}</Col>
+                      <Col className="input-name">{data.name}</Col>
+                      <Col>
+                        <Button
+                          variant="primary"
+                          onClick={() => this.formEdit(index)}
+                          className="button-edit"
+                        >
+                          Edit
+                        </Button>
+                      </Col>
+                      <Col>
+                        <Button
+                          variant="danger"
+                          onClick={() => this.formDelete(index)}
+                          className="button-delete"
+                        >
+                          Delete
+                        </Button>
+                      </Col>
+                    </Row>
+                  </li>
+                ))}
+              </div>
+            ) : (
+              <div>
+                <Row>
+                  <ListGroup horizontal>
+                    <ListGroup.Item>Tipe</ListGroup.Item>
+                    <ListGroup.Item>Jumlah</ListGroup.Item>
+                    <ListGroup.Item>Judul</ListGroup.Item>
+                    <ListGroup.Item>Action</ListGroup.Item>
+                  </ListGroup>
+                </Row>
+                <Row>
+                  <Col>Data Empty</Col>
+                  <Col>Data Empty</Col>
+                  <Col>Data Empty</Col>
+                  <Col>Data Empty</Col>
+                </Row>
+              </div>
+            )}
+          </Row>
+        </Container>
       </div>
     );
   }
